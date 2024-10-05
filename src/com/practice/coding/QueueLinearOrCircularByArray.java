@@ -1,17 +1,17 @@
 package com.practice.coding;
 
-public class QueueByArray {
+public class QueueLinearOrCircularByArray {
     private int[] arr;
     private int maxSize;
     private int front;
-    private int back;
+    private int rear;
     private int currentSize;
 
-    public QueueByArray(int maxSize){
+    public QueueLinearOrCircularByArray(int maxSize){
         this.arr = new int[maxSize];
         this.maxSize = maxSize;
-        this.front = 0;
-        this.back = -1;
+        this.front = -1;
+        this.rear = -1;
         this.currentSize = 0;
     }
 
@@ -25,7 +25,7 @@ public class QueueByArray {
 
     public int top(){
         if(!isEmpty())
-            return arr[back];
+            return arr[rear];
         else
             return -1;
     }
@@ -33,11 +33,15 @@ public class QueueByArray {
     public void enqueue(int item){
         if(isFull()){
             return;
-        } else {
-            back = (back+1) % maxSize;
-            arr[back] = item;
-            currentSize++;
         }
+        if(isEmpty()){
+            front = 0;
+        }
+
+        rear = (rear +1) % maxSize;// this is for wrap around in circular queue
+        arr[rear] = item;
+        currentSize++;
+
     }
 
     public int dequeue(){
@@ -52,7 +56,7 @@ public class QueueByArray {
     }
 
     public static void main(String[] args) {
-        QueueByArray queue = new QueueByArray(5);
+        QueueLinearOrCircularByArray queue = new QueueLinearOrCircularByArray(5);
         //equeue 2 4 6 8 10 at the end
         queue.enqueue(2);
         queue.enqueue(4);

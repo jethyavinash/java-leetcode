@@ -1,6 +1,6 @@
 package com.practice.coding;
 
-public class Queue<T> {
+public class QueueUsingLinkedList<T> {
     private int size = 0;
     private Node<T> front;
     private Node<T> rear;
@@ -52,7 +52,7 @@ public class Queue<T> {
     }
 
     public static void main(String[] args) throws Exception {
-        Queue<String> queue = new Queue<>();
+        QueueUsingLinkedList<String> queue = new QueueUsingLinkedList<>();
         queue.enqueue("a");
         queue.enqueue("b");
         queue.enqueue("c");
