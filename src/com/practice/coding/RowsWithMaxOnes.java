@@ -1,3 +1,5 @@
+package com.practice.coding;
+
 import java.util.Arrays;
 
 public class RowsWithMaxOnes {
