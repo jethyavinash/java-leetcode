@@ -1,6 +1,10 @@
 package com.practice.coding.tree2024;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TreeCustom<T extends Comparable<T>> {
+    List<T> sortedNodes = new ArrayList<>();
     private static class Node<T>{
         T data;
         Node<T> left;
@@ -98,19 +102,106 @@ public class TreeCustom<T extends Comparable<T>> {
         }
     }
 
+    private Integer heightOfTree(Node<T> root) {
+        if(root == null){
+            return 0;
+        }
+
+        int heightOfLeftSubtree = heightOfTree(root.left);
+        int heightOfRightSubtree = heightOfTree(root.right);
+        return 1 + Math.min(heightOfLeftSubtree, heightOfRightSubtree);
+    }
+
+    public Node<T> getRoot(){
+        return root;
+    }
+
     public static void main(String[] args) {
         TreeCustom<Integer> treeCustom = new TreeCustom<>();
-        treeCustom.insert(5);
-        treeCustom.insert(3);
-        treeCustom.insert(7);
+        treeCustom.insert(1);
         treeCustom.insert(2);
-        treeCustom.insert(4);
         treeCustom.insert(6);
-        treeCustom.insert(8);
-        treeCustom.inOrderTraversal();
-        treeCustom.preOrderTraversal();
-        treeCustom.postOrderTraversal();
-        System.out.println(treeCustom.search(8));
+        treeCustom.insert(9);
+        treeCustom.insert(12);
+        treeCustom.insert(15);
+        treeCustom.insert(18);
+        //treeCustom.inOrderTraversal();
+        //treeCustom.preOrderTraversal();
+        //treeCustom.postOrderTraversal();
+        //System.out.println(treeCustom.search(8));
+        //int heightOfTree = treeCustom.heightOfTree(treeCustom.getRoot());
+        //boolean isBalanced = treeCustom.isBalancedBinaryTree(treeCustom.getRoot());
+        //int minDiff = treeCustom.minDiffBetNodes(treeCustom.getRoot());
+        int sumRange = rangeSumBST(treeCustom.getRoot(),5,17);
+        System.out.println(sumRange);
+
+
     }
+
+    private static int rangeSumBST(Node<Integer> root,Integer low,Integer high) {
+
+        if(root == null)
+            return 0;
+
+        int sum = 0;
+        if(root.data > low){
+            sum+=rangeSumBST(root.left, low, high);
+        }
+
+        if(root.data>=low && root.data<=high){
+            sum += root.data;
+        }
+        if(root.data < high){
+            sum+=rangeSumBST(root.right, low, high);
+        }
+        return sum;
+    }
+
+    private int minDiffBetNodes(Node<T> root) {
+        sortedNodes.clear();
+        inOrderTraversalWithList(root);
+        int min = Integer.MAX_VALUE;
+        for(int i = 1 ; i< sortedNodes.size();i++){
+            Integer next  = (Integer) sortedNodes.get(i);
+            Integer curr =  (Integer) sortedNodes.get(i-1);
+            min = Math.min(min,next-curr);
+        }
+        return min;
+
+    }
+
+    private void inOrderTraversalWithList(Node<T> root) {
+        if(root == null){
+            return;
+        }
+        inOrderTraversalWithList(root.left);
+        sortedNodes.add(root.data);
+        inOrderTraversalWithList(root.right);
+    }
+
+    private static boolean isBalancedBinaryTree(Node<Integer> root) {
+        return depth(root) != -1;
+    }
+
+    private static int depth(Node<Integer> root) {
+        if(root == null){
+            return 0;
+        }
+
+        int leftHeight = depth(root.left);
+        if(leftHeight == -1)
+            return -1;
+
+        int rightHeight = depth(root.right);
+        if(rightHeight == -1)
+            return -1;
+
+        if(Math.abs(leftHeight-rightHeight) > 1){
+            return -1;
+        }
+
+        return Math.max(leftHeight, rightHeight)+1;
+    }
+
 
 }
