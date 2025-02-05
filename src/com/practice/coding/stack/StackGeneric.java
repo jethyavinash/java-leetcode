@@ -1,6 +1,6 @@
 package com.practice.coding.stack;
 
-public class Stack<T> {
+public class StackGeneric<T> {
         private Node<T> top;
         private static class Node<T>{
             private T data;
@@ -41,7 +41,7 @@ public class Stack<T> {
 
 class Test{
         public static void main(String[] args) throws Exception {
-                Stack<String> stack = new Stack<>();
+                StackGeneric<String> stack = new StackGeneric<>();
                 stack.push("a");
                 stack.push("b");
                 stack.push("3");
