@@ -1,4 +1,4 @@
-package com.practice.coding.stack;
+package com.practice.coding.pattern.stack;
 
 public class StackGeneric<T> {
         private Node<T> top;
