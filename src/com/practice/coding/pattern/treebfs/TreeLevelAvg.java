@@ -1,18 +1,15 @@
 package com.practice.coding.pattern.treebfs;
 
-import com.sun.source.tree.Tree;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
-public class TreeLevelOrderTraversal {
+public class TreeLevelAvg {
     private static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+        private int val;
+        private TreeNode left;
+        private TreeNode right;
         public TreeNode(int val){
             this.val = val;
             this.left = null;
@@ -20,9 +17,8 @@ public class TreeLevelOrderTraversal {
         }
     }
 
+
     public static void main(String[] args) {
-
-
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
         root.right = new TreeNode(3);
@@ -30,31 +26,29 @@ public class TreeLevelOrderTraversal {
         root.left.right = new TreeNode(5);
         root.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
-
-        List<List<Integer>> result = levelOrderTraversal(root);
-        result.forEach((innerList) -> {
-            System.out.println(innerList.stream().map(String::valueOf).collect(Collectors.joining(",","[","]")));
-        });
-
+        List<Double> result = levelAvgOfBinaryTree(root);
+        System.out.println(result);
     }
 
-    private static List<List<Integer>> levelOrderTraversal(TreeNode root){
-        List<List<Integer>> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList();
+    private static List<Double> levelAvgOfBinaryTree(TreeNode root){
+        List<Double> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
+
         while (!queue.isEmpty()){
             int levelSize = queue.size();
-            List<Integer> levelList = new ArrayList<>();
-            for(int i = 0;i< levelSize;i++){
+            double levelSum = 0;
+            for(int i = 0 ; i< levelSize ;i++){
                 TreeNode levelNode = queue.poll();
-                levelList.add(levelNode.val);
-                if(levelNode.left != null)
+                levelSum+=levelNode.val;
+                if(levelNode.left != null){
                     queue.add(levelNode.left);
-                if(levelNode.right != null)
+                }
+                if(levelNode.right != null){
                     queue.add(levelNode.right);
+                }
             }
-
-            result.add(levelList);
+            result.add(levelSum / levelSize);
         }
         return result;
     }
