@@ -1,4 +1,4 @@
-package com.practice.coding;
+package com.practice.coding.pattern.graph;
 
 import java.util.ArrayList;
 import java.util.List;

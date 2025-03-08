@@ -1,4 +1,4 @@
-package com.practice.coding.graph;
+package com.practice.coding.pattern.graph;
 
 import java.util.*;
 
