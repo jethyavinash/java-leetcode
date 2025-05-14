@@ -1,4 +1,4 @@
-package com.practice.coding.trie;
+package com.practice.coding.pattern.trie;
 
 import java.util.ArrayList;
 import java.util.Arrays;
