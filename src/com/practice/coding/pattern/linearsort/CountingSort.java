@@ -2,6 +2,9 @@ package com.practice.coding.pattern.linearsort;
 
 import java.util.Arrays;
 
+/**
+ * Credit : https://www.youtube.com/watch?v=mowMVn9wTnE
+ */
 public class CountingSort {
     public static void main(String[] args) {
         int[] input = {2,1,1,3,4};
